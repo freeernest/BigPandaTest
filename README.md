@@ -21,11 +21,19 @@ So this system architectur can be clustered, thus it is easily scalable.
 # How To Build and Run:
 
 1. Clone 3 projects from GitHub:
-		*
-		*
-		*
+		1. https://github.com/freeernest/BigPandaTest.git
+		2. https://github.com/freeernest/blackbox-listener.git
+		3. https://github.com/freeernest/blackbox-statistics-reader.git
 
-2. Build the Spring boot app with maven dependencies.
+2. Build the Spring boot app with maven dependencies for each of 3 cloned projects.
+	2.1 Better use InteliJ IDE and run the 'mvn clean install' command (or simply run it from cmd)
+
+3. Start Zookeeper and then start Kafka on default port - 9092.
+
+4. Via IDE run main method of BlackBoxProcessRunnerApplication.class from project "blackbox-process-runner-service" (https://github.com/freeernest/BigPandaTest.git)
+
+5. Via IDE run main method of **** from project "blackbox-listener" (https://github.com/freeernest/blackbox-listener.git)
+
 
 3. For getting the stats: GET http://localhost:8080/AyeletBigPanda_war_exploded/events/stats.
 
