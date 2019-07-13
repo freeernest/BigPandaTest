@@ -3,13 +3,20 @@
 Senior Software Developer interview submission task for Big Panda !
 by Erik Feigin.
 
-I think the consumer should read the messages and save them to in-memory cache (like a queue) without any complex logic that could take time.
+Current solution is using 
+	* Vert.x
+	* Spring Boot
+	* Kafka
+	* Maven
+	
+It is build in microservices architecture, so this system can be clustered, thus it is easily scalable.
 
-After, another process should read from the queue and save the data (in DB/Redis/in-memory) in a way that will help with the stats API.
+Consumer is reading the messages and save them to in-memory cache (Kafka queue) without any complex logic that could take time.
+
+Then another process is reading messages from the queue and save the data in clasterd Hazelcast IMDG memory in a way that will help with the stats API.
 
 The HTTP API should get his data from the final data.
 
-So this system architectur can be clustered, thus it is easily scalable.
 
 # Prerequisites
 
@@ -32,20 +39,26 @@ So this system architectur can be clustered, thus it is easily scalable.
 
 4. Via IDE run main method of BlackBoxProcessRunnerApplication.class from project "blackbox-process-runner-service" (https://github.com/freeernest/BigPandaTest.git)
 
-5. Via IDE run main method of **** from project "blackbox-listener" (https://github.com/freeernest/blackbox-listener.git)
+5. Via IDE run main method of BlackBoxListenerApplication from project "blackbox-listener" (https://github.com/freeernest/blackbox-listener.git)
+
+6. Via IDE run main method of BlackBoxStatisticsReaderApplication from project "blackbox-statistics-reader" (https://github.com/freeernest/blackbox-statistics-reader.git)
 
 
-3. For getting the stats: GET http://localhost:8080/AyeletBigPanda_war_exploded/events/stats.
+3. For getting the stats: 
+	*   GET http://localhost:8081/statistics/data 
+	*   GET http://localhost:8081/statistics/type
 
 # Thing To Improve
 
-1. I know there is a way to start listening to the generator without calling it as an API, but I worked on the assignment about 4 hours and didn't want to exaggerate.
-2.  should have write tests, I'm the kind of person who does not approve a PR without checking all the tests.
-3. think that there is a better way to read the stream in a non blocking way. I read about NIO, but I'm not familiar with it, so I didn't want to spent the time on understanding it for this assignment.
+1. Think that there is a better way to read the stream in a non blocking way. I read about NIO, but I'm not familiar with it, so I do not have enough time on understanding it for this assignment.
+2. Write more tests, I'm the kind of person who does not approve a PR without checking all the tests.
+3. Enrich logging
+4. Exception handling
 
 
 Best Regards,
 Erik Feigin
+
 
 
 
@@ -59,13 +72,7 @@ Initial requirements:
 Your exercise is to implement a Non Blocking Producer/Consumer stream processing service that exposes an HTTP api.
 
 
-
-
-
-You are provided with a blackbox executable that spits out an infinite stream of lines of event data encoded in JSON. You can download it here:
-
-
-
+You are provided with a blackbox executable that splits out an infinite stream of lines of event data encoded in JSON. You can download it here:
 
 
 * Linux -
@@ -73,15 +80,9 @@ You are provided with a blackbox executable that spits out an infinite stream of
 https://s3-us-west-1.amazonaws.com/bp-interview-artifacts/generator-linux-amd64
 
 
-
-
-
 * Mac OS X -
 
 https://s3-us-west-1.amazonaws.com/bp-interview-artifacts/generator-macosx-amd64
-
-
-
 
 
 * Windows -
@@ -89,12 +90,7 @@ https://s3-us-west-1.amazonaws.com/bp-interview-artifacts/generator-macosx-amd64
 https://s3-us-west-1.amazonaws.com/bp-interview-artifacts/generator-windows-amd64.exe
 
 
-
-
-
 Service Requirements
-
-
 
 It should consume the output of the generator and gather the following stats:
 A count of events by event type.
