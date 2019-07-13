@@ -1,9 +1,7 @@
-# BigPandaTest
-BigPandaTest
+# BigPandaTest - Introduction
 
 Senior Software Developer interview submission task for Big Panda !
 by Erik Feigin.
-
 
 I think the consumer should read the messages and save them to in-memory cache (like a queue) without any complex logic that could take time.
 
@@ -11,7 +9,16 @@ After, another process should read from the queue and save the data (in DB/Redis
 
 The HTTP API should get his data from the final data.
 
-How To Run:
+So this system architectur can be clustered, thus it is easily scalable.
+
+# Prerequisites
+
+	1. JDK 1.8 or later
+	2. Maven 3.0  or later
+	3. Kafka 2.1 or later
+	4. Your Own Savvy !
+
+# How To Build and Run:
 
 1. Clone 3 projects from GitHub:
 		*
@@ -22,7 +29,7 @@ How To Run:
 
 3. For getting the stats: GET http://localhost:8080/AyeletBigPanda_war_exploded/events/stats.
 
-Thing To Improve
+# Thing To Improve
 
 1. I know there is a way to start listening to the generator without calling it as an API, but I worked on the assignment about 4 hours and didn't want to exaggerate.
 2.  should have write tests, I'm the kind of person who does not approve a PR without checking all the tests.
@@ -34,7 +41,10 @@ Erik Feigin
 
 
 
-Reference.
+
+
+
+# Reference
 
 Initial requirements:
 
